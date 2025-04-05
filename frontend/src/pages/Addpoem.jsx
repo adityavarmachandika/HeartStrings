@@ -17,7 +17,7 @@ const Addpoem = () => {
                 headers:{
                     'Content-Type':'application/json'
                 },
-                body:JSON.stringify(poemdata)
+                body:JSON.stringify(poemdata)   
             })
             try{
                 if(response.ok){
