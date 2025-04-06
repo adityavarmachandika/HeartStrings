@@ -13,7 +13,6 @@
             poem_title: poemData.poem_title,
             poem_text: poemData.poem_text
         }).returning()
-        console.log(poemData.poem_text)
         return c.json(result)
     }
     export default addpoem

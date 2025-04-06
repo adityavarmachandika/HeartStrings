@@ -11,6 +11,7 @@ const getpoems=async (c:Context)=>{
     const res=  await db.select({
         title:poems.poem_title,
         text:poems.poem_text,
+        id:poems.poem_id
       }).from(poems)
     return c.json(res)
 }
