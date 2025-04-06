@@ -12,9 +12,8 @@ const App = () => {
       <Routes>
         <Route path='/'  element={<MainLayout/>}>
           <Route path='addpoem'  element={<Addpoem/>}/> 
-          <Route path='getpoem'  element={<Getpoem/>}/> 
+          <Route path=''  element={<Getpoem/>}/> 
           <Route path='poem'  element={<Individual_poem/>}/> 
-
         </Route>
       </Routes>
     </BrowserRouter>

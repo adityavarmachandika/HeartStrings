@@ -1,11 +1,11 @@
 import React from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
 
-const Poemcard = ({title,text}) => {
+const Poemcard = ({title,text,id}) => {
     const navigate = useNavigate();
     
     const handleClick = () => {
-      navigate('/poem', { state: { title, text } });
+      navigate('/poem', { state: { title, text,id } });
     };
   return (
     <div

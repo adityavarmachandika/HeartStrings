@@ -12,9 +12,10 @@ const GetPoem = () => {
 
   useEffect(() => {
     const displayfunction = async () => {
-      const response = await fetch("http://127.0.0.1:8787/api/user/getpoem");
+      const response = await fetch("https://backend.vikram-blaxsquad.workers.dev/api/user/getpoem");
       if (response.ok) {
         const data = await response.json(); 
+        // console.log(data)
         setPoemdata(data);
       } else {
         console.log("response not ok");
@@ -24,11 +25,10 @@ const GetPoem = () => {
   }, []);
 
   const featuredArray = poemdata ? [
-    { title: poemdata[0]?.title, text: poemdata[0]?.text.slice(100) },
-    { title: poemdata[2]?.title, text: poemdata[2]?.text.slice(100) },
-    { title: poemdata[4]?.title, text: poemdata[4]?.text.slice(100) },
-    { title: poemdata[8]?.title, text: poemdata[8]?.text.slice(100) },
-    { title: poemdata[10]?.title, text: poemdata[10]?.text.slice(100) }
+    { title: poemdata[0]?.title, text: poemdata[0]?.text,id:poemdata[0].id },
+    { title: poemdata[2]?.title, text: poemdata[2]?.text,id:poemdata[2].id },
+    { title: poemdata[4]?.title, text: poemdata[4]?.text,id:poemdata[4].id },
+    { title: poemdata[8]?.title, text: poemdata[8]?.text,id:poemdata[8].id },
   ] : [];
 
   return (
@@ -41,23 +41,24 @@ const GetPoem = () => {
     spaceBetween={50}
     slidesPerView={2}
     autoplay={{ delay: 3000 }}
-    // pagination={{ clickable: true }}
-    navigation={true}
+    pagination={{ clickable: true }}
+    // navigation={true}
     className="w-full mt-8 mb-12"
   >
     {featuredArray.map((poem, index) => (
       <SwiperSlide key={index}>
         <div className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300 border-2 border-orange-100 transform hover:-translate-y-1">
-          <Herobar title={poem.title} text={poem.text} />
+          <Herobar title={poem.title} text={poem.text} id={poem.id} />
         </div>
       </SwiperSlide>
     ))}
   </Swiper>
   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
     {poemdata &&
-      poemdata.map((poem, index) => (
-        <Poemcard key={index} title={poem.title} text={poem.text}/>
+      poemdata.map((poem,index) => (
+        <Poemcard key={index} id={poem.id} title={poem.title} text={poem.text}/>
       ))}
+
   </div>
 </div>
   );

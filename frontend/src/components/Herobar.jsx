@@ -1,11 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Herobar = ({ title, text }) => {
+const Herobar = ({title, text,id }) => {
   const navigate = useNavigate();
   
   const handleClick = () => {
-    navigate('/poem', { state: { title, text } });
+    navigate('/poem', { state: { title, text ,id} });
   };
   
   return (

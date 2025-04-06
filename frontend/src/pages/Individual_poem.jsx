@@ -1,13 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-
 const Individual_poem = () => {
   const { state } = useLocation();
-  const { title, text } = state;
+  const { title, text,id } = state;
   const navigate = useNavigate();
-
+  const [liked,setliked]=useState(0)
+  const [likescount,setlikescount]=useState()
+  const likeupdate= async ()=>{
+    setliked(!liked)
+    try{
+    const response=await fetch("https://backend.vikram-blaxsquad.workers.dev/api/user/likepost",
+      {
+        method:"POST",
+        headers:{
+          'Content-Type':'application/json'
+        },
+        body:JSON.stringify({"poem_id":id})
+      }
+    )
+      if(response.ok){
+        const count =await response.json()
+        setlikescount(count[0].likescount)
+      }
+      else {
+        const text = await response.text();
+        console.error("Server Error:", text);
+      }
+    }
+    catch(error){
+      console.log(error)
+    }
+    
+  }
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-orange-50 py-12 px-4 sm:px-6">
+    <div className="min-h-screen bg-gradient-to-b from-white to-orange-50 py-12 px-4 sm:px-6 flex">
       <div className="max-w-3xl mx-auto">
         {/* Back button */}
         <button 
@@ -51,17 +77,19 @@ const Individual_poem = () => {
               
               
               <div className="flex space-x-3">
-                
-                <button className="p-2 rounded-full bg-orange-50 text-orange-500 hover:bg-orange-100 transition-colors duration-200">
+                 
+                <button className={`p-2 rounded-full ${liked ? 'bg-orange-100' : 'bg-orange-50'} ${liked ? 'text-orange-500' : 'text-orange-400'} hover:bg-orange-100 transition-colors duration-200 cursor-pointer flex`} onClick={()=>likeupdate()}>
                   <svg 
                     xmlns="http://www.w3.org/2000/svg" 
                     className="h-5 w-5" 
-                    fill="none" 
+
+                    fill={liked ? "currentColor" : "none"}
                     viewBox="0 0 24 24" 
                     stroke="currentColor"
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                   </svg>
+                  <h6 className='pl-1'> {likescount}</h6>
                 </button>
                 
               </div>
