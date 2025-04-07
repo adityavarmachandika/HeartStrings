@@ -25,7 +25,7 @@
     {
       "binding": "db",
       "database_name": "poemdatabase",
-      "database_id": "69a93aa2-9d0d-4083-bb82-1077bb307345",
+      "database_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
       "migrations_dir": "./drizzle/migrations"
     }
   ],
